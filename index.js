@@ -95,10 +95,14 @@ window.onload = function init(){
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById( "yButton" ).onclick = function () {
-        axis = yAxis;
+        vertices = rotacionaObjeto(vertices, m4.yRotation(radians(5)))
+        gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById( "zButton" ).onclick = function () {
-        axis = zAxis;
+        vertices = rotacionaObjeto(vertices, m4.zRotation(radians(5)))
+        gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById("ButtonT").onclick = function(){flag = !flag;};
 
@@ -108,7 +112,7 @@ window.onload = function init(){
 function render(){
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     if(flag) cameraRotation[axis] += 2.0;
-    gl.uniform3fv(cameraLocation, cameraRotation);
+    gl.uniform3fv(cameraLocation, [0,0,0]);
 
     gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_BYTE, 0);
     requestAnimationFrame(render);
