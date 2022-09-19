@@ -4,11 +4,11 @@ var canvas;
 var gl;
 
 var axis = 0;
-var xAxis = 0;
-var yAxis = 1;
-var zAxis = 2;
-var theta = [0, 0, 0];
-var thetaLoc;
+const xAxis = 0;
+const yAxis = 1;
+const zAxis = 2;
+var cameraRotation = [0, 0, 0];
+var cameraLocation;
 var flag = true;
 var numElements = 36;
 var vertices = [
@@ -86,11 +86,13 @@ window.onload = function init(){
     gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(positionLoc );
 
-    thetaLoc = gl.getUniformLocation(program, "uTheta");
+    cameraLocation = gl.getUniformLocation(program, "uCamera");
 
     //event listeners for buttons
     document.getElementById( "xButton" ).onclick = function () {
-        axis = xAxis;
+        vertices = rotacionaObjeto(vertices, m4.xRotation(radians(5)))
+        gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById( "yButton" ).onclick = function () {
         axis = yAxis;
@@ -105,10 +107,25 @@ window.onload = function init(){
 
 function render(){
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    console.log(theta)
-    if(flag) theta[axis] += 2.0;
-    gl.uniform3fv(thetaLoc, theta);
+    if(flag) cameraRotation[axis] += 2.0;
+    gl.uniform3fv(cameraLocation, cameraRotation);
 
     gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_BYTE, 0);
     requestAnimationFrame(render);
+}
+
+function radians( degrees ) {
+    return degrees * Math.PI / 180.0;
+}
+
+function rotacionaObjeto(vertices, matrizRotacao){
+    for (let i = 0; i < vertices.length; i++) {
+        let vertice = vec4(vertices[i][0], vertices[i][1], vertices[i][2], 1)
+        let aux = vec4(0, 0, 0, 0)
+        m4.multiply(matrizRotacao, vertice, aux)
+        for (let j = 0; j < 3; j++) {
+            vertices[i][j] = aux[j]
+        }
+    }
+    return vertices
 }
