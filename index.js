@@ -7,6 +7,7 @@ var cameraRotation = [180, 180, 0];
 var cameraLocation;
 var numElements = 36;
 var vertices = [
+    //parte da frente
     vec3( 0.5,  0.5, 0.5),
     vec3(-0.5,  0.5, 0.5),
     vec3( 0.5, -0.5, 0.5),
@@ -24,7 +25,7 @@ var vertexColors = [
     vec4(0.0, 0.0, 1.0, 1.0),  // blue
     vec4(1.0, 0.0, 1.0, 1.0),  // magenta
     vec4(1.0, 1.0, 1.0, 1.0),  // white
-    vec4(0.0, 1.0, 1.0, 1.0)   // cyan
+    vec4(0.0, 1.0, 1.0, 1.0),  // cyan
 ];
 
 // indices of the 12 triangles that compise the cube
@@ -52,6 +53,8 @@ window.onload = function init(){
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
 
+    gl.enable(gl.DEPTH_TEST);
+    
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
     gl.useProgram(program);
