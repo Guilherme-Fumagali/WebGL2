@@ -7,11 +7,10 @@ var cameraRotation = [180, 180, 0];
 var cameraLocation;
 var numElements = 36;
 var vertices = [
-    //parte da frente
-    vec3( 0.5,  0.5, 0.5),
-    vec3(-0.5,  0.5, 0.5),
-    vec3( 0.5, -0.5, 0.5),
-    vec3(-0.5, -0.5, 0.5),
+    vec3( 0.5,  0.5,  0.5),
+    vec3(-0.5,  0.5,  0.5),
+    vec3( 0.5, -0.5,  0.5),
+    vec3(-0.5, -0.5,  0.5),
     vec3( 0.5,  0.5, -0.5),
     vec3(-0.5,  0.5, -0.5),
     vec3( 0.5, -0.5, -0.5),
@@ -100,8 +99,6 @@ window.onload = function init(){
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
-    const cameraX = document.getElementById( "cameraX" );
-    const cameraY = document.getElementById( "cameraY" );
     cameraX.onmousemove = function () {
         cameraRotation[0] = cameraX.value;
     };
