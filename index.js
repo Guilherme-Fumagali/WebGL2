@@ -3,13 +3,8 @@
 var canvas;
 var gl;
 
-var axis = 0;
-const xAxis = 0;
-const yAxis = 1;
-const zAxis = 2;
-var cameraRotation = [0, 0, 0];
+var cameraRotation = [180, 180, 0];
 var cameraLocation;
-var flag = true;
 var numElements = 36;
 var vertices = [
     vec3(-0.5, -0.5,  0.5),
@@ -54,10 +49,8 @@ window.onload = function init(){
     gl = canvas.getContext('webgl2');
     if (!gl) alert("WebGL 2.0 isn't available");
 
-
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
-
 
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
@@ -104,13 +97,21 @@ window.onload = function init(){
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
+    const cameraX = document.getElementById( "cameraX" );
+    const cameraY = document.getElementById( "cameraY" );
+
+    cameraX.onmousemove = function () {
+        cameraRotation[0] = cameraX.value;
+    };
+    cameraY.onmousemove = function () {
+        cameraRotation[1] = cameraY.value;
+    };
     render();
 }
 
 function render(){
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    if(flag) cameraRotation[axis] += 2.0;
-    gl.uniform3fv(cameraLocation, [0,0,0]);
+    gl.uniform3fv(cameraLocation, cameraRotation);
 
     gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_BYTE, 0);
     requestAnimationFrame(render);
@@ -125,9 +126,8 @@ function rotacionaObjeto(vertices, matrizRotacao){
         let vertice = vec4(vertices[i][0], vertices[i][1], vertices[i][2], 1)
         let aux = vec4(0, 0, 0, 0)
         m4.multiply(matrizRotacao, vertice, aux)
-        for (let j = 0; j < 3; j++) {
+        for (let j = 0; j < 3; j++) 
             vertices[i][j] = aux[j]
-        }
     }
     return vertices
 }

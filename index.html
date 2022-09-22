@@ -63,20 +63,19 @@ main()
 
 
 <body>
-    <div style="display: flex; flex-direction: column; justify-content: space-around; align-content: center;">
+    <div style="display: flex; flex-direction: column; align-items: center;">
         <div>
-            <canvas id="gl-canvas" width="256" height="256">
+            <canvas style="border: 2px solid black; border-radius: 10px;" id="gl-canvas" width="300" height="300">
                 Oops ... your browser doesn't support the HTML5 canvas element
             </canvas>
-            <input style="rotate: -90deg" type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            <input style="rotate: -90deg; position: absolute; top: 150px; right: 30%;" type="range" min="1" max="360" value="180" class="slider" id="cameraX">
         </div>
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+        <input style="max-width: 300px; position: relative;" type="range" min="1" max="360" value="180" class="slider" id="cameraY">
         <div>
-            <button id= "xButton">Rotate X</button>
-            <button id= "yButton">Rotate Y</button>
-            <button id= "zButton">Rotate Z</button>
-        </div>
-        
+            <button style="max-width: 100px;" id= "xButton">Rotate X</button>
+            <button style="max-width: 100px;" id= "yButton">Rotate Y</button>
+            <button style="max-width: 100px;" id= "zButton">Rotate Z</button>
+        </div>        
     </div>
 </body>
 </html>
