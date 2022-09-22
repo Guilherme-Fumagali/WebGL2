@@ -16,6 +16,7 @@ var vertices = [
     vec3( 0.5, -0.5, -0.5),
     vec3(-0.5, -0.5, -0.5),
 ];
+
 var vertexColors = [
     vec4(0.0, 0.0, 0.0, 1.0),  // black
     vec4(1.0, 0.0, 0.0, 1.0),  // red
@@ -85,17 +86,17 @@ window.onload = function init(){
 
     //event listeners for buttons
     document.getElementById( "xButton" ).onclick = function () {
-        vertices = rotacionaObjeto(vertices, m4.xRotation(radians(5)))
+        vertices = multiplica(vertices, m4.xRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById( "yButton" ).onclick = function () {
-        vertices = rotacionaObjeto(vertices, m4.yRotation(radians(5)))
+        vertices = multiplica(vertices, m4.yRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById( "zButton" ).onclick = function () {
-        vertices = rotacionaObjeto(vertices, m4.zRotation(radians(5)))
+        vertices = multiplica(vertices, m4.zRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
@@ -109,7 +110,7 @@ window.onload = function init(){
 }
 
 function render(){
-   // gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.uniform3fv(cameraLocation, cameraRotation);
 
     gl.drawElements(gl.TRIANGLES, numElements, gl.UNSIGNED_BYTE, 0);
@@ -120,13 +121,13 @@ function radians( degrees ) {
     return degrees * Math.PI / 180.0;
 }
 
-function rotacionaObjeto(vertices, matrizRotacao){
-    for (let i = 0; i < vertices.length; i++) {
-        let vertice = vec4(vertices[i][0], vertices[i][1], vertices[i][2], 1)
+function multiplica(m1, m2){
+    for (let i = 0; i < m1.length; i++) {
+        let vertice = vec4(m1[i][0], m1[i][1], m1[i][2], 1)
         let aux = vec4(0, 0, 0, 0)
-        m4.multiply(matrizRotacao, vertice, aux)
+        m4.multiply(m2, vertice, aux)
         for (let j = 0; j < 3; j++) 
-            vertices[i][j] = aux[j]
+            m1[i][j] = aux[j]
     }
-    return vertices
+    return m1
 }
