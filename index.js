@@ -104,8 +104,6 @@ window.onload = function init(){
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
-    document.getElementById("ButtonT").onclick = function(){flag = !flag;};
-
     render();
 }
 
