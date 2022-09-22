@@ -7,15 +7,16 @@ var cameraRotation = [180, 180, 0];
 var cameraLocation;
 var numElements = 36;
 var vertices = [
-    vec3(-0.5, -0.5,  0.5),
+    vec3( 0.5,  0.5,  0.5),
     vec3(-0.5,  0.5,  0.5),
-    vec3(0.5,  0.5,  0.5),
-    vec3(0.5, -0.5,  0.5),
-    vec3(-0.5, -0.5, -0.5),
+    vec3( 0.5, -0.5,  0.5),
+    vec3(-0.5, -0.5,  0.5),
+    vec3( 0.5,  0.5, -0.5),
     vec3(-0.5,  0.5, -0.5),
-    vec3(0.5,  0.5, -0.5),
-    vec3(0.5, -0.5, -0.5)
+    vec3( 0.5, -0.5, -0.5),
+    vec3(-0.5, -0.5, -0.5),
 ];
+
 var vertexColors = [
     vec4(0.0, 0.0, 0.0, 1.0),  // black
     vec4(1.0, 0.0, 0.0, 1.0),  // red
@@ -24,23 +25,23 @@ var vertexColors = [
     vec4(0.0, 0.0, 1.0, 1.0),  // blue
     vec4(1.0, 0.0, 1.0, 1.0),  // magenta
     vec4(1.0, 1.0, 1.0, 1.0),  // white
-    vec4(0.0, 1.0, 1.0, 1.0)   // cyan
+    vec4(0.0, 1.0, 1.0, 1.0),  // cyan
 ];
 
 // indices of the 12 triangles that compise the cube
 var indices = [
-    1, 0, 3,
-    3, 2, 1,
-    2, 3, 7,
-    7, 6, 2,
-    3, 0, 4,
-    4, 7, 3,
-    6, 5, 1,
-    1, 2, 6,
-    4, 5, 6,
-    6, 7, 4,
-    5, 4, 0,
-    0, 1, 5
+    2, 1, 0, //face da frente
+    2, 1, 3, //face da frente
+    3, 6, 2, //face de cima
+    3, 6, 7, //face de cima
+    6, 5, 4, //face de trás
+    6, 5, 7, //face de trás
+    4, 1, 0, //face de baixo
+    4, 1, 5, //face de baixo
+    6, 0, 2, //face da esquerda em relação a frente
+    6, 0, 4, //face da esquerda em relação a frente
+    7, 1, 3, //face da direita em relação a frente
+    7, 1, 5  //face da direita em relação a frente
 ];
 
 window.onload = function init(){
@@ -52,6 +53,8 @@ window.onload = function init(){
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
 
+    gl.enable(gl.DEPTH_TEST);
+    
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
     gl.useProgram(program);
@@ -67,14 +70,14 @@ window.onload = function init(){
     gl.bufferData(gl.ARRAY_BUFFER, flatten(vertexColors), gl.STATIC_DRAW);
 
     var colorLoc = gl.getAttribLocation(program, "aColor");
-    gl.vertexAttribPointer(colorLoc, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(colorLoc, 4, gl.FLOAT, true, 0, 0);
     gl.enableVertexAttribArray(colorLoc);
 
     // vertex array attribute buffer
     var vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
-
+    
     var positionLoc = gl.getAttribLocation( program, "aPosition");
     gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(positionLoc );
@@ -83,23 +86,20 @@ window.onload = function init(){
 
     //event listeners for buttons
     document.getElementById( "xButton" ).onclick = function () {
-        vertices = rotacionaObjeto(vertices, m4.xRotation(radians(5)))
+        vertices = multiplica(vertices, m4.xRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById( "yButton" ).onclick = function () {
-        vertices = rotacionaObjeto(vertices, m4.yRotation(radians(5)))
+        vertices = multiplica(vertices, m4.yRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
     document.getElementById( "zButton" ).onclick = function () {
-        vertices = rotacionaObjeto(vertices, m4.zRotation(radians(5)))
+        vertices = multiplica(vertices, m4.zRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     };
-    const cameraX = document.getElementById( "cameraX" );
-    const cameraY = document.getElementById( "cameraY" );
-
     cameraX.onmousemove = function () {
         cameraRotation[0] = cameraX.value;
     };
@@ -121,13 +121,13 @@ function radians( degrees ) {
     return degrees * Math.PI / 180.0;
 }
 
-function rotacionaObjeto(vertices, matrizRotacao){
-    for (let i = 0; i < vertices.length; i++) {
-        let vertice = vec4(vertices[i][0], vertices[i][1], vertices[i][2], 1)
+function multiplica(m1, m2){
+    for (let i = 0; i < m1.length; i++) {
+        let vertice = vec4(m1[i][0], m1[i][1], m1[i][2], 1)
         let aux = vec4(0, 0, 0, 0)
-        m4.multiply(matrizRotacao, vertice, aux)
+        m4.multiply(m2, vertice, aux)
         for (let j = 0; j < 3; j++) 
-            vertices[i][j] = aux[j]
+            m1[i][j] = aux[j]
     }
-    return vertices
+    return m1
 }
