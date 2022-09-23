@@ -196,17 +196,17 @@ window.onload = function init(){
 
     //event listeners for buttons
     document.getElementById( "xButton" ).onclick = function () {
-        vertices[0] = rotaciona(vertices[0], m4.xRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.xRotation(radians(5)), 0.6, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
     document.getElementById( "yButton" ).onclick = function () {
-        vertices[0] = rotaciona(vertices[0], m4.yRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.yRotation(radians(5)), 0.6, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
     document.getElementById( "zButton" ).onclick = function () {
-        vertices[0] = rotaciona(vertices[0], m4.zRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.zRotation(radians(5)), 0.6, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
@@ -242,10 +242,10 @@ function multiplica(vertices, m2){
     return vertices
 }
 
-function rotaciona(vertices, matrizRotacao) {
-    let verticesAncora = multiplica(vertices, m4.translation(-0.6, 0, 0));
+function rotaciona(vertices, matrizRotacao, eixoX, eixoY) {
+    let verticesAncora = multiplica(vertices, m4.translation(-eixoX, -eixoY, 0));
     let verticesRotacionados = multiplica(verticesAncora, matrizRotacao);
-    return multiplica(verticesRotacionados, m4.translation(0.6, 0, 0));
+    return multiplica(verticesRotacionados, m4.translation(eixoX, eixoY, 0));
 }
 
 function montaCena(){
@@ -261,8 +261,17 @@ function montaCena(){
     for (let index = 0; index < vertices.length; index++) 
         multiplica(vertices[index], m4.scaling(scale, scale, scale))
     
+    //objeto 1
     multiplica(vertices[0], m4.translation(positions.objeto1, 0, 0))
+    
+    //objeto 2
     multiplica(vertices[1], m4.translation(positions.objeto2, 0.1, 0))
+    rotaciona(vertices[1], m4.xRotation(radians(270)), positions.objeto2, 0.1)
+    rotaciona(vertices[1], m4.yRotation(radians(270)), positions.objeto2, 0.1)
+
+    //objeto 3
     multiplica(vertices[2], m4.translation(positions.objeto3, 0, 0))
+
+    //objeto 4
     multiplica(vertices[3], m4.translation(positions.objeto4, 0.1, 0))
 }
