@@ -44,7 +44,7 @@ void main()
 <script id="fragment-shader" type="x-shader/x-fragment">
 #version 300 es
 
-precision mediump float;
+precision highp float;
 
 in vec4 vColor;
 out vec4 fColor;
@@ -56,23 +56,36 @@ main()
 }
 </script>
 
-<script type="text/javascript" src="./bibliotecas/initShaders.js"></script>
-<script type="text/javascript" src="./bibliotecas/MVnew.js"></script>
-<script type="text/javascript" src="./bibliotecas/m4.js"></script>
-<script type="text/javascript" src="pe.js"></script>
+<script type="text/javascript" src="./Resources/initShaders.js"></script>
+<script type="text/javascript" src="./Resources/MVnew.js"></script>
+<script type="text/javascript" src="./Resources/m4.js"></script>
+<script type="text/javascript" src="index.js"></script>
 
 
 <body>
-<canvas id="gl-canvas" width="512"" height="512">
-Oops ... your browser doesn't support the HTML5 canvas element
-</canvas>
-
-<br/>
-
-<button id= "xButton">Rotate X</button>
-<button id= "yButton">Rotate Y</button>
-<button id= "zButton">Rotate Z</button>
-<button id = "ButtonT">Toggle Rotation</button>
-
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div>
+            <canvas style="border: 2px solid black; border-radius: 10px;" id="gl-canvas" width="700" height="700">
+                Oops ... your browser doesn't support the HTML5 canvas element
+            </canvas>
+            <input style=" 
+            writing-mode: bt-lr;
+            -webkit-appearance: slider-vertical;
+            width: 8px;
+            height: 175px;
+            padding: 0 5px; 
+            position: absolute; 
+            top: 270px; 
+            right: 21%;
+            max-height: 200;" 
+            type="range" min="1" max="360" value="180" class="slider" id="cameraX" orient="vertical">
+        </div>
+        <input style="width: 200px; position: relative;" type="range" min="1" max="360" value="180" class="slider" id="cameraY">
+        <div>
+            <button style="max-width: 100px;" id= "xButton">Rotate X</button>
+            <button style="max-width: 100px;" id= "yButton">Rotate Y</button>
+            <button style="max-width: 100px;" id= "zButton">Rotate Z</button>
+        </div>        
+    </div>
 </body>
 </html>
