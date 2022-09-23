@@ -5,47 +5,157 @@ var gl;
 
 var cameraRotation = [180, 180, 0];
 var cameraLocation;
-var numElements = 36;
-var vertices = [
-    vec3( 0.5,  0.5,  0.5),
-    vec3(-0.5,  0.5,  0.5),
-    vec3( 0.5, -0.5,  0.5),
-    vec3(-0.5, -0.5,  0.5),
-    vec3( 0.5,  0.5, -0.5),
-    vec3(-0.5,  0.5, -0.5),
-    vec3( 0.5, -0.5, -0.5),
-    vec3(-0.5, -0.5, -0.5),
+
+var numElements = 36*4;
+var vertices = [[
+        vec3( 0.5,  0.5,  0.5),
+        vec3(-0.5,  0.5,  0.5),
+        vec3( 0.5, -0.5,  0.5),
+        vec3(-0.5, -0.5,  0.5),
+        vec3( 0.5,  0.5, -0.5),
+        vec3(-0.5,  0.5, -0.5),
+        vec3( 0.5, -0.5, -0.5),
+        vec3(-0.5, -0.5, -0.5),
+    ],
+    [
+        vec3( 0.5,  0.5,  0.5),
+        vec3(-0.5,  0.5,  0.5),
+        vec3( 0.5, -0.5,  0.5),
+        vec3(-0.5, -0.5,  0.5),
+        vec3( 0.5,  0.5, -0.5),
+        vec3(-0.5,  0.5, -0.5),
+        vec3( 0.5, -0.5, -0.5),
+        vec3(-0.5, -0.5, -0.5),
+    ],
+    [
+        vec3( 0.5,  0.5,  0.5),
+        vec3(-0.5,  0.5,  0.5),
+        vec3( 0.5, -0.5,  0.5),
+        vec3(-0.5, -0.5,  0.5),
+        vec3( 0.5,  0.5, -0.5),
+        vec3(-0.5,  0.5, -0.5),
+        vec3( 0.5, -0.5, -0.5),
+        vec3(-0.5, -0.5, -0.5),
+    ],
+    [
+        vec3( 0.5,  0.5,  0.5),
+        vec3(-0.5,  0.5,  0.5),
+        vec3( 0.5, -0.5,  0.5),
+        vec3(-0.5, -0.5,  0.5),
+        vec3( 0.5,  0.5, -0.5),
+        vec3(-0.5,  0.5, -0.5),
+        vec3( 0.5, -0.5, -0.5),
+        vec3(-0.5, -0.5, -0.5),
+    ],
 ];
 
 var vertexColors = [
-    vec4(0.0, 0.0, 0.0, 1.0),  // black
-    vec4(1.0, 0.0, 0.0, 1.0),  // red
-    vec4(1.0, 1.0, 0.0, 1.0),  // yellow
-    vec4(0.0, 1.0, 0.0, 1.0),  // green
-    vec4(0.0, 0.0, 1.0, 1.0),  // blue
-    vec4(1.0, 0.0, 1.0, 1.0),  // magenta
-    vec4(1.0, 1.0, 1.0, 1.0),  // white
-    vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+    [
+        vec4(0.0, 0.0, 0.0, 1.0),  // black
+        vec4(1.0, 0.0, 0.0, 1.0),  // red
+        vec4(1.0, 1.0, 0.0, 1.0),  // yellow
+        vec4(0.0, 1.0, 0.0, 1.0),  // green
+        vec4(0.0, 0.0, 1.0, 1.0),  // blue
+        vec4(1.0, 0.0, 1.0, 1.0),  // magenta
+        vec4(1.0, 1.0, 1.0, 1.0),  // white
+        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+    ],
+    [
+        vec4(0.0, 0.0, 0.0, 1.0),  // black
+        vec4(1.0, 0.0, 0.0, 1.0),  // red
+        vec4(1.0, 1.0, 0.0, 1.0),  // yellow
+        vec4(0.0, 1.0, 0.0, 1.0),  // green
+        vec4(0.0, 0.0, 1.0, 1.0),  // blue
+        vec4(1.0, 0.0, 1.0, 1.0),  // magenta
+        vec4(1.0, 1.0, 1.0, 1.0),  // white
+        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+    ],
+    [
+        vec4(0.0, 0.0, 0.0, 1.0),  // black
+        vec4(1.0, 0.0, 0.0, 1.0),  // red
+        vec4(1.0, 1.0, 0.0, 1.0),  // yellow
+        vec4(0.0, 1.0, 0.0, 1.0),  // green
+        vec4(0.0, 0.0, 1.0, 1.0),  // blue
+        vec4(1.0, 0.0, 1.0, 1.0),  // magenta
+        vec4(1.0, 1.0, 1.0, 1.0),  // white
+        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+    ],
+    [
+        vec4(0.0, 0.0, 0.0, 1.0),  // black
+        vec4(1.0, 0.0, 0.0, 1.0),  // red
+        vec4(1.0, 1.0, 0.0, 1.0),  // yellow
+        vec4(0.0, 1.0, 0.0, 1.0),  // green
+        vec4(0.0, 0.0, 1.0, 1.0),  // blue
+        vec4(1.0, 0.0, 1.0, 1.0),  // magenta
+        vec4(1.0, 1.0, 1.0, 1.0),  // white
+        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+    ],
 ];
 
 // indices of the 12 triangles that compise the cube
 var indices = [
-    2, 1, 0, //face da frente
-    2, 1, 3, //face da frente
-    3, 6, 2, //face de cima
-    3, 6, 7, //face de cima
-    6, 5, 4, //face de trás
-    6, 5, 7, //face de trás
-    4, 1, 0, //face de baixo
-    4, 1, 5, //face de baixo
-    6, 0, 2, //face da esquerda em relação a frente
-    6, 0, 4, //face da esquerda em relação a frente
-    7, 1, 3, //face da direita em relação a frente
-    7, 1, 5  //face da direita em relação a frente
+    [
+        2, 1, 0, //face da frente
+        2, 1, 3, //face da frente
+        3, 6, 2, //face de cima
+        3, 6, 7, //face de cima
+        6, 5, 4, //face de trás
+        6, 5, 7, //face de trás
+        4, 1, 0, //face de baixo
+        4, 1, 5, //face de baixo
+        6, 0, 2, //face da esquerda em relação a frente
+        6, 0, 4, //face da esquerda em relação a frente
+        7, 1, 3, //face da direita em relação a frente
+        7, 1, 5  //face da direita em relação a frente
+    ],
+    [
+        2, 1, 0, //face da frente
+        2, 1, 3, //face da frente
+        3, 6, 2, //face de cima
+        3, 6, 7, //face de cima
+        6, 5, 4, //face de trás
+        6, 5, 7, //face de trás
+        4, 1, 0, //face de baixo
+        4, 1, 5, //face de baixo
+        6, 0, 2, //face da esquerda em relação a frente
+        6, 0, 4, //face da esquerda em relação a frente
+        7, 1, 3, //face da direita em relação a frente
+        7, 1, 5  //face da direita em relação a frente
+    ].map(x => x + 8),
+    [
+        2, 1, 0, //face da frente
+        2, 1, 3, //face da frente
+        3, 6, 2, //face de cima
+        3, 6, 7, //face de cima
+        6, 5, 4, //face de trás
+        6, 5, 7, //face de trás
+        4, 1, 0, //face de baixo
+        4, 1, 5, //face de baixo
+        6, 0, 2, //face da esquerda em relação a frente
+        6, 0, 4, //face da esquerda em relação a frente
+        7, 1, 3, //face da direita em relação a frente
+        7, 1, 5  //face da direita em relação a frente
+    ].map(x => x + 16),
+    [
+        2, 1, 0, //face da frente
+        2, 1, 3, //face da frente
+        3, 6, 2, //face de cima
+        3, 6, 7, //face de cima
+        6, 5, 4, //face de trás
+        6, 5, 7, //face de trás
+        4, 1, 0, //face de baixo
+        4, 1, 5, //face de baixo
+        6, 0, 2, //face da esquerda em relação a frente
+        6, 0, 4, //face da esquerda em relação a frente
+        7, 1, 3, //face da direita em relação a frente
+        7, 1, 5  //face da direita em relação a frente
+    ].map(x => x + 24),
 ];
 
 window.onload = function init(){
     canvas = document.getElementById("gl-canvas");
+    
+    montaCena();
 
     gl = canvas.getContext('webgl2');
     if (!gl) alert("WebGL 2.0 isn't available");
@@ -62,12 +172,12 @@ window.onload = function init(){
     // array element buffer
     var iBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iBuffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint8Array(indices), gl.STATIC_DRAW);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint8Array(indices.flat()), gl.STATIC_DRAW);
 
     // color array atrribute buffer
     var cBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertexColors), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertexColors.flat()), gl.STATIC_DRAW);
 
     var colorLoc = gl.getAttribLocation(program, "aColor");
     gl.vertexAttribPointer(colorLoc, 4, gl.FLOAT, true, 0, 0);
@@ -76,29 +186,29 @@ window.onload = function init(){
     // vertex array attribute buffer
     var vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     
     var positionLoc = gl.getAttribLocation( program, "aPosition");
     gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(positionLoc );
+    gl.enableVertexAttribArray(positionLoc);
 
     cameraLocation = gl.getUniformLocation(program, "uCamera");
 
     //event listeners for buttons
     document.getElementById( "xButton" ).onclick = function () {
-        vertices = multiplica(vertices, m4.xRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.xRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
     document.getElementById( "yButton" ).onclick = function () {
-        vertices = multiplica(vertices, m4.yRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.yRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
     document.getElementById( "zButton" ).onclick = function () {
-        vertices = multiplica(vertices, m4.zRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.zRotation(radians(5)))
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
     cameraX.onmousemove = function () {
         cameraRotation[0] = cameraX.value;
@@ -121,13 +231,38 @@ function radians( degrees ) {
     return degrees * Math.PI / 180.0;
 }
 
-function multiplica(m1, m2){
-    for (let i = 0; i < m1.length; i++) {
-        let vertice = vec4(m1[i][0], m1[i][1], m1[i][2], 1)
+function multiplica(vertices, m2){
+    for (let i = 0; i < vertices.length; i++) {
+        let vertice = vec4(vertices[i][0], vertices[i][1], vertices[i][2], 1)
         let aux = vec4(0, 0, 0, 0)
         m4.multiply(m2, vertice, aux)
         for (let j = 0; j < 3; j++) 
-            m1[i][j] = aux[j]
+            vertices[i][j] = aux[j]
     }
-    return m1
+    return vertices
+}
+
+function rotaciona(vertices, matrizRotacao) {
+    let verticesAncora = multiplica(vertices, m4.translation(-0.6, 0, 0));
+    let verticesRotacionados = multiplica(verticesAncora, matrizRotacao);
+    return multiplica(verticesRotacionados, m4.translation(0.6, 0, 0));
+}
+
+function montaCena(){
+    const positions = {
+        objeto1: 0.6,
+        objeto2: 0.2,
+        objeto3: -0.2,
+        objeto4: -0.6,
+    }
+    const scale = -0.28
+
+    /* Diminuir a escala */
+    for (let index = 0; index < vertices.length; index++) 
+        multiplica(vertices[index], m4.scaling(scale, scale, scale))
+    
+    multiplica(vertices[0], m4.translation(positions.objeto1, 0, 0))
+    multiplica(vertices[1], m4.translation(positions.objeto2, 0.1, 0))
+    multiplica(vertices[2], m4.translation(positions.objeto3, 0, 0))
+    multiplica(vertices[3], m4.translation(positions.objeto4, 0.1, 0))
 }
