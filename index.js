@@ -18,14 +18,14 @@ var vertices = [[
         vec3(-0.5, -0.5, -0.5),
     ],
     [
-        vec3( 0.5,  0.5,  0.5),
-        vec3(-0.5,  0.5,  0.5),
-        vec3( 0.5, -0.5,  0.5),
-        vec3(-0.5, -0.5,  0.5),
-        vec3( 0.5,  0.5, -0.5),
-        vec3(-0.5,  0.5, -0.5),
-        vec3( 0.5, -0.5, -0.5),
-        vec3(-0.5, -0.5, -0.5),
+        vec3(0.1, -0.2,  0.1),
+        vec3(0.1,  0.2,  0.1),
+        vec3(0.5,  0.2,  0.1),
+        vec3(0.5, -0.2,  0.1),
+        vec3(-0.5, -0.2, -0.5),
+        vec3(-0.5,  0.2, -0.5),
+        vec3(0.5,  0.5, -0.5),
+        vec3(0.5, -0.5, -0.5),
     ],
     [
         vec3( 0.5,  0.5,  0.5),
@@ -61,14 +61,14 @@ var vertexColors = [
         vec4(0.0, 1.0, 1.0, 1.0),  // cyan
     ],
     [
-        vec4(0.0, 0.0, 0.0, 1.0),  // black
-        vec4(1.0, 0.0, 0.0, 1.0),  // red
-        vec4(1.0, 1.0, 0.0, 1.0),  // yellow
-        vec4(0.0, 1.0, 0.0, 1.0),  // green
-        vec4(0.0, 0.0, 1.0, 1.0),  // blue
-        vec4(1.0, 0.0, 1.0, 1.0),  // magenta
-        vec4(1.0, 1.0, 1.0, 1.0),  // white
-        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+        vec4(0.5, 0.1, 0.0, 1.0),  // black
+        vec4(0.0, 0.2, 0.0, 1.0),  // red
+        vec4(0.0, 0.3, 0.5, 1.0),  // yellow
+        vec4(0.1, 0.4, 0.1, 1.0),  // green
+        vec4(0.5, 0.5, 0.0, 1.0),  // blue
+        vec4(0.9, 0.6, 0.2, 1.0),  // magenta
+        vec4(0.0, 0.7, 0.5, 1.0),  // white
+        vec4(0.5, 0.8, 0.5, 1.0)   // cyan
     ],
     [
         vec4(0.0, 0.0, 0.0, 1.0),  // black
@@ -109,18 +109,18 @@ var indices = [
         7, 1, 5  //face da direita em relação a frente
     ],
     [
-        2, 1, 0, //face da frente
-        2, 1, 3, //face da frente
-        3, 6, 2, //face de cima
-        3, 6, 7, //face de cima
-        6, 5, 4, //face de trás
-        6, 5, 7, //face de trás
-        4, 1, 0, //face de baixo
-        4, 1, 5, //face de baixo
-        6, 0, 2, //face da esquerda em relação a frente
-        6, 0, 4, //face da esquerda em relação a frente
-        7, 1, 3, //face da direita em relação a frente
-        7, 1, 5  //face da direita em relação a frente
+        1, 0, 3,
+        3, 2, 1,
+        2, 3, 7,
+        7, 6, 2,
+        3, 0, 4,
+        4, 7, 3,
+        6, 5, 1,
+        1, 2, 6,
+        4, 5, 6,
+        6, 7, 4,
+        5, 4, 0,
+        0, 1, 5
     ].map(x => x + 8),
     [
         2, 1, 0, //face da frente
@@ -196,17 +196,17 @@ window.onload = function init(){
 
     //event listeners for buttons
     document.getElementById( "xButton" ).onclick = function () {
-        vertices[0] = rotaciona(vertices[0], m4.xRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.xRotation(radians(5)), 0.6, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
     document.getElementById( "yButton" ).onclick = function () {
-        vertices[0] = rotaciona(vertices[0], m4.yRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.yRotation(radians(5)), 0.6, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
     document.getElementById( "zButton" ).onclick = function () {
-        vertices[0] = rotaciona(vertices[0], m4.zRotation(radians(5)))
+        vertices[0] = rotaciona(vertices[0], m4.zRotation(radians(5)), 0.6, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     };
@@ -242,10 +242,10 @@ function multiplica(vertices, m2){
     return vertices
 }
 
-function rotaciona(vertices, matrizRotacao) {
-    let verticesAncora = multiplica(vertices, m4.translation(-0.6, 0, 0));
+function rotaciona(vertices, matrizRotacao, eixoX, eixoY) {
+    let verticesAncora = multiplica(vertices, m4.translation(-eixoX, -eixoY, 0));
     let verticesRotacionados = multiplica(verticesAncora, matrizRotacao);
-    return multiplica(verticesRotacionados, m4.translation(0.6, 0, 0));
+    return multiplica(verticesRotacionados, m4.translation(eixoX, eixoY, 0));
 }
 
 function montaCena(){
@@ -261,8 +261,17 @@ function montaCena(){
     for (let index = 0; index < vertices.length; index++) 
         multiplica(vertices[index], m4.scaling(scale, scale, scale))
     
+    //objeto 1
     multiplica(vertices[0], m4.translation(positions.objeto1, 0, 0))
+    
+    //objeto 2
     multiplica(vertices[1], m4.translation(positions.objeto2, 0.1, 0))
+    rotaciona(vertices[1], m4.xRotation(radians(270)), positions.objeto2, 0.1)
+    rotaciona(vertices[1], m4.yRotation(radians(270)), positions.objeto2, 0.1)
+
+    //objeto 3
     multiplica(vertices[2], m4.translation(positions.objeto3, 0, 0))
+
+    //objeto 4
     multiplica(vertices[3], m4.translation(positions.objeto4, 0.1, 0))
 }
