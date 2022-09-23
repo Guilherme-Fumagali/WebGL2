@@ -153,7 +153,7 @@ window.onload = function init(){
     if (!gl) alert("WebGL 2.0 isn't available");
 
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(1.0, 1.0, 1.0, 1.0);
+    gl.clearColor(0.15, 0.15, 0.15, 1.0);
 
     gl.enable(gl.DEPTH_TEST);
     
