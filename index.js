@@ -6,7 +6,7 @@ var gl;
 var cameraRotation = [180, 180, 0];
 var cameraLocation;
 
-var numElements = 36*4;
+var numElements = 36*3+24;
 var vertices = [[
         vec3( 0.5,  0.5,  0.5),
         vec3(-0.5,  0.5,  0.5),
@@ -28,14 +28,12 @@ var vertices = [[
         vec3(0.5, -0.5, -0.5),
     ],
     [
-        vec3( 0.5,  0.5,  0.5),
-        vec3(-0.5,  0.5,  0.5),
-        vec3( 0.5, -0.5,  0.5),
-        vec3(-0.5, -0.5,  0.5),
-        vec3( 0.5,  0.5, -0.5),
-        vec3(-0.5,  0.5, -0.5),
-        vec3( 0.5, -0.5, -0.5),
-        vec3(-0.5, -0.5, -0.5),
+        vec3(0.5, 0.5, 0),
+        vec3(-0.5, 0.5, 0),
+        vec3(0, 0.5, 0.5),
+        vec3(0.5, -0.5, 0),
+        vec3(-0.5, -0.5, 0),
+        vec3(0, -0.5, 0.5),
     ],
     [
         vec3( 0.5,  0.5,  0.5),
@@ -76,9 +74,7 @@ var vertexColors = [
         vec4(1.0, 1.0, 0.0, 1.0),  // yellow
         vec4(0.0, 1.0, 0.0, 1.0),  // green
         vec4(0.0, 0.0, 1.0, 1.0),  // blue
-        vec4(1.0, 0.0, 1.0, 1.0),  // magenta
-        vec4(1.0, 1.0, 1.0, 1.0),  // white
-        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+        vec4(0.0, 1.0, 1.0, 0.0),  // magenta 
     ],
     [
         vec4(0.0, 0.0, 0.0, 1.0),  // black
@@ -123,18 +119,14 @@ var indices = [
         0, 1, 5
     ].map(x => x + 8),
     [
-        2, 1, 0, //face da frente
-        2, 1, 3, //face da frente
-        3, 6, 2, //face de cima
-        3, 6, 7, //face de cima
-        6, 5, 4, //face de trás
-        6, 5, 7, //face de trás
-        4, 1, 0, //face de baixo
-        4, 1, 5, //face de baixo
-        6, 0, 2, //face da esquerda em relação a frente
-        6, 0, 4, //face da esquerda em relação a frente
-        7, 1, 3, //face da direita em relação a frente
-        7, 1, 5  //face da direita em relação a frente
+        0, 1, 2,
+        3, 4, 5,
+        2, 4, 5,
+        1, 2, 4,
+        0, 3, 1,
+        1, 3, 4,
+        0, 2, 3,
+        2, 5, 3,
     ].map(x => x + 16),
     [
         2, 1, 0, //face da frente
@@ -149,7 +141,7 @@ var indices = [
         6, 0, 4, //face da esquerda em relação a frente
         7, 1, 3, //face da direita em relação a frente
         7, 1, 5  //face da direita em relação a frente
-    ].map(x => x + 24),
+    ].map(x => x + 22),
 ];
 
 window.onload = function init(){
@@ -270,7 +262,10 @@ function montaCena(){
     rotaciona(vertices[1], m4.yRotation(radians(270)), positions.objeto2, 0.1)
 
     //objeto 3
-    multiplica(vertices[2], m4.translation(positions.objeto3, 0, 0))
+    multiplica(vertices[2], m4.translation(positions.objeto3, 0, 0.1))
+    rotaciona(vertices[2], m4.xRotation(radians(-90)), positions.objeto3, 0)
+    rotaciona(vertices[2], m4.yRotation(radians(25)), positions.objeto3, 0)
+
 
     //objeto 4
     multiplica(vertices[3], m4.translation(positions.objeto4, 0.1, 0))
