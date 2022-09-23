@@ -255,7 +255,9 @@ function montaCena(){
     
     //objeto 1
     multiplica(vertices[0], m4.translation(positions.objeto1, 0, 0))
-    
+    rotaciona(vertices[0], m4.xRotation(radians(-45)), positions.objeto1, 0)
+    rotaciona(vertices[0], m4.yRotation(radians(-45)), positions.objeto1, 0)
+
     //objeto 2
     multiplica(vertices[1], m4.translation(positions.objeto2, 0.1, 0))
     rotaciona(vertices[1], m4.xRotation(radians(270)), positions.objeto2, 0.1)
