@@ -73,7 +73,7 @@ var vertexColors = [
         vec4(0.5, 0.0, 0.5, 0.0),  // roxo
         vec4(1.0, 0.0, 1.0, 1.0),  // roxo claro
         vec4(1.0, 0.0, 1.0, 1.0),  // roxo claro
-        vec4(1.0, 0.0, 1.0, 0.0),  // broxo claro 
+        vec4(1.0, 0.0, 1.0, 0.0),  // roxo claro 
     ],
     [
         vec4(0.0, 0.0, 0.0, 1.0),  // preto
