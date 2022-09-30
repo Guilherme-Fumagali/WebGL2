@@ -1,0 +1,40 @@
+.rollv{
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 150px;
+    padding: 0 5px;
+    top: -250px;
+    right: -50px;
+    position: relative;
+
+}
+.rollh{
+    width: 200px; position: relative;
+    top: -150px;
+}
+.btn{
+    margin-top: 10px;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #820875;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px rgb(45, 1, 45);
+}
+.btn:hover {background-color: #6d066d}
+.btn:active {
+    background-color: #43043a;
+    box-shadow: 0 5px rgb(71, 3, 41);
+    transform: translateY(4px);
+}
+
+body, html {
+    background-color: #262626;
+}
