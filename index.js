@@ -3,10 +3,11 @@
 var canvas;
 var gl;
 
+/* Variáveis da câmera */
 var cameraRotation = [180, 180, 0];
 var cameraLocation;
-
-const cuboRotation = [false, false, false];
+/* ------------------- */
+const cuboRotation = [false, false, false]; //objeto auxiliar para movimento do cubo
 
 var vertices = [[
         vec4( 0.5,  0.5,  0.5, 1),
@@ -19,29 +20,29 @@ var vertices = [[
         vec4(-0.5, -0.5, -0.5, 1),
     ],
     [
-        vec4(0.1, -0.2,  0.1, 1),
-        vec4(0.1,  0.2,  0.1, 1),
-        vec4(0.5,  0.2,  0.1, 1),
-        vec4(0.5, -0.2,  0.1, 1),
+        vec4( 0.1, -0.2,  0.1, 1),
+        vec4( 0.1,  0.2,  0.1, 1),
+        vec4( 0.5,  0.2,  0.1, 1),
+        vec4( 0.5, -0.2,  0.1, 1),
         vec4(-0.5, -0.2, -0.5, 1),
         vec4(-0.5,  0.2, -0.5, 1),
-        vec4(0.5,  0.5, -0.5, 1),
-        vec4(0.5, -0.5, -0.5, 1),
+        vec4( 0.5,  0.5, -0.5, 1),
+        vec4( 0.5, -0.5, -0.5, 1),
     ],
     [
-        vec4(0.5, 0.5, 0, 1),
-        vec4(-0.5, 0.5, 0, 1),
-        vec4(0, 0.5, 0.5, 1),
-        vec4(0.5, -0.5, 0, 1),
-        vec4(-0.5, -0.5, 0, 1),
-        vec4(0, -0.5, 0.5, 1),
+        vec4( 0.5,  0.5,   0, 1),
+        vec4(-0.5,  0.5,   0, 1),
+        vec4(   0,  0.5, 0.5, 1),
+        vec4( 0.5, -0.5,   0, 1),
+        vec4(-0.5, -0.5,   0, 1),
+        vec4(   0, -0.5, 0.5, 1),
     ],
     [
-        vec4(0, 0,  0.5, 1),
-        vec4(-0.5,  -0.5,  -0.5, 1),
-        vec4(-0.5,  0.5,  -0.5, 1),
-        vec4(0.5, 0.5,  -0.5, 1),
-        vec4(0.5, -0.5, -0.5, 1),
+        vec4(   0,    0,  0.5, 1),
+        vec4(-0.5, -0.5, -0.5, 1),
+        vec4(-0.5,  0.5, -0.5, 1),
+        vec4( 0.5,  0.5, -0.5, 1),
+        vec4( 0.5, -0.5, -0.5, 1),
     ],
 ];
 
@@ -76,9 +77,9 @@ var vertexColors = [
     ],
     [
         vec4(0.0, 0.0, 0.0, 1.0),  // black
-        vec4(0.0, 1.0, 1.0, 1.0),  // red
+        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
         vec4(0.0, 0.0, 0.0, 1.0),  // yellow
-        vec4(0.0, 1.0, 1.0, 1.0),  // green
+        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
         vec4(0.0, 1.0, 0.5, 1.0),  // cyan
     ],
 ];
@@ -132,16 +133,17 @@ var indices = [
         1, 2, 3,
     ].map(x => x + 22),
 ];
-const numElements = indices.flat().length
+const numElements = indices.flat().length //qtd de vértices usadas
 
-
+/* BUFFERS */
 var iBuffer
 var cBuffer
 var vBuffer
+/* ------- */
 window.onload = function init(){
     canvas = document.getElementById("gl-canvas");
     
-    montaCena();
+    montaCena(); //posiciona e escalona os objetos na cena
 
     gl = canvas.getContext('webgl2');
     if (!gl) alert("WebGL 2.0 isn't available");
@@ -149,7 +151,7 @@ window.onload = function init(){
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.15, 0.15, 0.15, 1.0);
 
-    gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.DEPTH_TEST); //ativa z-buffer
     
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
@@ -173,7 +175,6 @@ window.onload = function init(){
     vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
-    
     
     var positionLoc = gl.getAttribLocation( program, "aPosition");
     gl.vertexAttribPointer(positionLoc, 4, gl.FLOAT, false, 0, 0);
@@ -223,12 +224,14 @@ function render(){
     if(cuboRotation[2])
         vertices[0] = rotaciona(vertices[0], m4.zRotation(radians(1)), 0.6, 0)
     
+    /* Atualiza buffer dos vértices */
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
 }
 
+/* Recebe um vetor de vértices vec4 e multiplica por m2 */
 function multiplica(vertices, m2){
-    for (let i = 0; i < vertices.length; i++) {
+    for (let i = 0; i < vertices.length; i++) { //para cada vértice 
         let vertice = vertices[i]
         let aux = [0, 0, 0, NaN]
         m4.multiply(m2, vertice, aux)
@@ -238,12 +241,14 @@ function multiplica(vertices, m2){
     return vertices
 }
 
+/* Rotaciona um objeto em qualquer lugar do plano*/
 function rotaciona(vertices, matrizRotacao, eixoX, eixoY) {
-    let verticesAncora = multiplica(vertices, m4.translation(-eixoX, -eixoY, 0));
-    let verticesRotacionados = multiplica(verticesAncora, matrizRotacao);
-    return multiplica(verticesRotacionados, m4.translation(eixoX, eixoY, 0));
+    let verticesAncora = multiplica(vertices, m4.translation(-eixoX, -eixoY, 0)); //translada para origem
+    let verticesRotacionados = multiplica(verticesAncora, matrizRotacao); //aplica transformação
+    return multiplica(verticesRotacionados, m4.translation(eixoX, eixoY, 0));   //translada para sua posição original
 }
 
+/* Aplica transformações aos objetos, de modo a ajustá-las na cena */
 function montaCena(){
     const positions = {
         objeto1: 0.6,
