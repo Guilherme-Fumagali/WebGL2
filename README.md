@@ -21,6 +21,7 @@ Na página há 3 botões para a rotação do cubo:
   - Rotate X, para rotação no eixo x.
   - Rotate Y, para rotação no eixo y.
   - Rotate Z, para rotação no eixo z. 
+  - Ao pressionar algum botão irá começar a rotação, ao clicar novamente irá interomper a rotação.
 
 Também há duas barras que podem ser movimentadas, que são usadas para movimentação da camêra: 
   - Barra Vertical: movimentação no eixo Y
