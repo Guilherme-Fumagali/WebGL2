@@ -6,44 +6,43 @@ var gl;
 var cameraRotation = [180, 180, 0];
 var cameraLocation;
 
-var numElements = 36*3+24;
 var vertices = [[
-        vec3( 0.5,  0.5,  0.5),
-        vec3(-0.5,  0.5,  0.5),
-        vec3( 0.5, -0.5,  0.5),
-        vec3(-0.5, -0.5,  0.5),
-        vec3( 0.5,  0.5, -0.5),
-        vec3(-0.5,  0.5, -0.5),
-        vec3( 0.5, -0.5, -0.5),
-        vec3(-0.5, -0.5, -0.5),
+        vec4( 0.5,  0.5,  0.5, 1),
+        vec4(-0.5,  0.5,  0.5, 1),
+        vec4( 0.5, -0.5,  0.5, 1),
+        vec4(-0.5, -0.5,  0.5, 1),
+        vec4( 0.5,  0.5, -0.5, 1),
+        vec4(-0.5,  0.5, -0.5, 1),
+        vec4( 0.5, -0.5, -0.5, 1),
+        vec4(-0.5, -0.5, -0.5, 1),
     ],
     [
-        vec3(0.1, -0.2,  0.1),
-        vec3(0.1,  0.2,  0.1),
-        vec3(0.5,  0.2,  0.1),
-        vec3(0.5, -0.2,  0.1),
-        vec3(-0.5, -0.2, -0.5),
-        vec3(-0.5,  0.2, -0.5),
-        vec3(0.5,  0.5, -0.5),
-        vec3(0.5, -0.5, -0.5),
+        vec4(0.1, -0.2,  0.1, 1),
+        vec4(0.1,  0.2,  0.1, 1),
+        vec4(0.5,  0.2,  0.1, 1),
+        vec4(0.5, -0.2,  0.1, 1),
+        vec4(-0.5, -0.2, -0.5, 1),
+        vec4(-0.5,  0.2, -0.5, 1),
+        vec4(0.5,  0.5, -0.5, 1),
+        vec4(0.5, -0.5, -0.5, 1),
     ],
     [
-        vec3(0.5, 0.5, 0),
-        vec3(-0.5, 0.5, 0),
-        vec3(0, 0.5, 0.5),
-        vec3(0.5, -0.5, 0),
-        vec3(-0.5, -0.5, 0),
-        vec3(0, -0.5, 0.5),
+        vec4(0.5, 0.5, 0, 1),
+        vec4(-0.5, 0.5, 0, 1),
+        vec4(0, 0.5, 0.5, 1),
+        vec4(0.5, -0.5, 0, 1),
+        vec4(-0.5, -0.5, 0, 1),
+        vec4(0, -0.5, 0.5, 1),
     ],
     [
-        vec3( 0.5,  0.5,  0.5),
-        vec3(-0.5,  0.5,  0.5),
-        vec3( 0.5, -0.5,  0.5),
-        vec3(-0.5, -0.5,  0.5),
-        vec3( 0.5,  0.5, -0.5),
-        vec3(-0.5,  0.5, -0.5),
-        vec3( 0.5, -0.5, -0.5),
-        vec3(-0.5, -0.5, -0.5),
+        vec4( 0.5,  0.5,  0.5, 1),
+        vec4(-0.5,  0.5,  0.5, 1),
+        vec4( 0.5, -0.5,  0.5, 1),
+        vec4(-0.5, -0.5,  0.5, 1),
+        vec4( 0.5,  0.5, -0.5, 1),
+        vec4(-0.5,  0.5, -0.5, 1),
+        vec4( 0.5, -0.5, -0.5, 1),
+        vec4(-0.5, -0.5, -0.5, 1),
     ],
 ];
 
@@ -143,6 +142,7 @@ var indices = [
         7, 1, 5  //face da direita em relação a frente
     ].map(x => x + 22),
 ];
+const numElements = indices.flat().length
 
 window.onload = function init(){
     canvas = document.getElementById("gl-canvas");
@@ -181,7 +181,7 @@ window.onload = function init(){
     gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices.flat()), gl.STATIC_DRAW);
     
     var positionLoc = gl.getAttribLocation( program, "aPosition");
-    gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribPointer(positionLoc, 4, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(positionLoc);
 
     cameraLocation = gl.getUniformLocation(program, "uCamera");
@@ -219,14 +219,10 @@ function render(){
     requestAnimationFrame(render);
 }
 
-function radians( degrees ) {
-    return degrees * Math.PI / 180.0;
-}
-
 function multiplica(vertices, m2){
     for (let i = 0; i < vertices.length; i++) {
-        let vertice = vec4(vertices[i][0], vertices[i][1], vertices[i][2], 1)
-        let aux = vec4(0, 0, 0, 0)
+        let vertice = vertices[i]
+        let aux = [0, 0, 0, NaN]
         m4.multiply(m2, vertice, aux)
         for (let j = 0; j < 3; j++) 
             vertices[i][j] = aux[j]
