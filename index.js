@@ -219,10 +219,6 @@ function render(){
     requestAnimationFrame(render);
 }
 
-function radians( degrees ) {
-    return degrees * Math.PI / 180.0;
-}
-
 function multiplica(vertices, m2){
     for (let i = 0; i < vertices.length; i++) {
         let vertice = vertices[i]
