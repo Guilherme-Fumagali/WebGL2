@@ -4,16 +4,16 @@ Projeto pratico da disciplica de processamento gráfico.
 O objetivo do trabalho é renderizar 4 objetos 3D em um ambiente virtual, aplicar um movimento simples em pelo menos um deles, utilizando no minimo 2 shaders e definindo uma camêra.
 
 Integrantes: 
-  - Guilherme Fumagali Marques,        RA: 792182
-  - Guilherme Silva de Camargo,        RA: 792183
-  - Rodrigo Henrique Amaral Araujo,    RA: 792241
+  - [Guilherme Fumagali Marques](https://github.com/Guilherme-Fumagali),        RA: 792182
+  - [Guilherme Silva de Camargo](https://github.com/guilhermesdc),        RA: 792183
+  - [Rodrigo Henrique Amaral Araujo](https://github.com/rodrigoamral),    RA: 792241
   - Vinicius Gabriel Nanini da Silva,  RA: 795181
 
 ## Implementação
 
-//detalhes da implementação
+Foi implementado uma cena, que pode ser visualizada a partir de uma câmera movel pelos eixos X e Y. Nessa cena temos 4 objetos com diferentes formas geométricas, implementados atravez de uma malha de triangulos, utilizando dois shaders(vertex e fragment). Destes objetos, o cubo possui o movimento de rotação através dos eixos X, Y e Z.
 
-O codigo foi feito em JavaScript, Html, Css e WebGL, com algumas bibliotecas usadas nos exemplos disponibilizados pelo professor, e que estão na pasta Resources.
+O codigo foi feito em JavaScript utilizando a API WebGL, HTML, CSS, com algumas bibliotecas de auxílio com operações de matrizes, m4 e MWnew que estão na pasta Resources.
 
 ## Como usar
 
