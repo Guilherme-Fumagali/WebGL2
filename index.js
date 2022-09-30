@@ -62,7 +62,7 @@ var vertexColors = [
         vec4(1, 0.0, 0.0, 1.0),  //vermelho
         vec4(0.6, 0.0, 0.0, 1.0), //vermelho esucro
         vec4(1, 0.0, 0.0, 1.0), //vermelho
-        vec4(0.8, 0.0, 0.0, 1.0),//vermelho escuro
+        vec4(0.8, 0.0, 0.0, 1.0), //vermelho escuro
         vec4(0.8, 0.0, 0.0, 1.0), //vermelho escuro
         vec4(0.8, 0.5, 0.5, 1.0), //branco
         vec4(0.8, 0.5, 0.5, 1.0)  //branco 
