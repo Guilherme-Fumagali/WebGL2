@@ -68,7 +68,11 @@ main()
             <canvas style="border: 2px solid black; border-radius: 10px;" id="gl-canvas" width="700" height="700">
                 Oops ... your browser doesn't support the HTML5 canvas element
             </canvas>
-            <input style=" 
+            
+        </div>
+        
+        <input style="width: 200px; position: relative;" type="range" min="1" max="360" value="180" class="slider" id="cameraY">
+        <input style=" 
             writing-mode: bt-lr;
             -webkit-appearance: slider-vertical;
             width: 8px;
@@ -79,8 +83,6 @@ main()
             right: 21%;
             max-height: 200;" 
             type="range" min="1" max="360" value="180" class="slider" id="cameraX" orient="vertical">
-        </div>
-        <input style="width: 200px; position: relative;" type="range" min="1" max="360" value="180" class="slider" id="cameraY">
         <div>
             <button style="max-width: 100px;" id= "xButton">Rotate X</button>
             <button style="max-width: 100px;" id= "yButton">Rotate Y</button>
