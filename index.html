@@ -13,13 +13,11 @@
         
         void main()
         {
-            // Compute the sines and cosines of Camera for each of
-            //   the three axes in one computation.
+            // Calcula os senos e cossenos da camera para cada um dos tres eixos.
             vec3 angles = radians( uCamera );
             vec3 c = cos( angles );
             vec3 s = sin( angles );
         
-            // Remeber: thse matrices are column-major
             mat4 rx = mat4( 1.0,  0.0,  0.0, 0.0,
                     0.0,  c.x,  s.x, 0.0,
                     0.0, -s.x,  c.x, 0.0,
