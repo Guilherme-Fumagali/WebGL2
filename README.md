@@ -1,19 +1,19 @@
 # Projeto PP2 - Grupo 1
-Projeto pratico da disciplica de processamento gráfico. 
+Projeto prático da disciplica de processamento gráfico. 
 
-O objetivo do trabalho é renderizar 4 objetos 3D em um ambiente virtual, aplicar um movimento simples em pelo menos um deles, utilizando no minimo 2 shaders e definindo uma camêra.
+O objetivo do trabalho é renderizar 4 objetos 3D em um ambiente virtual, aplicando um movimento simples em pelo menos um deles, utilizando no minimo 2 shaders e definindo uma camêra.
 
 Integrantes: 
   - [Guilherme Fumagali Marques](https://github.com/Guilherme-Fumagali),        RA: 792182
   - [Guilherme Silva de Camargo](https://github.com/guilhermesdc),        RA: 792183
   - [Rodrigo Henrique Amaral Araujo](https://github.com/rodrigoamral),    RA: 792241
-  - Vinicius Gabriel Nanini da Silva,  RA: 795181
+  - [Vinicius Gabriel Nanini da Silva](https://github.com/N4NiNi),  RA: 795181
 
 ## Implementação
 
-Foi implementado uma cena, que pode ser visualizada a partir de uma câmera movel pelos eixos X e Y. Nessa cena temos 4 objetos com diferentes formas geométricas, implementados atravez de uma malha de triangulos, utilizando dois shaders(vertex e fragment). Destes objetos, o cubo possui o movimento de rotação através dos eixos X, Y e Z.
+Foi implementado uma cena, que pode ser visualizada a partir de uma câmera movel pelos eixos X e Y. Nessa cena temos 4 objetos com diferentes formas geométricas, sendo um cubo, uma pirâmide, um prisma e um hexaedro não regular(com forma de um sapato), implementados através de uma malha de triângulos, utilizando dois shaders(vertex e fragment). Destes objetos, o cubo possui o movimento de rotação através dos eixos X, Y e Z.
 
-O codigo foi feito em JavaScript utilizando a API WebGL, HTML, CSS, com algumas bibliotecas de auxílio com operações de matrizes, m4 e MWnew que estão na pasta Resources.
+O código foi feito em JavaScript utilizando a API WebGL, HTML, CSS, com algumas bibliotecas de auxílio com operações de matrizes, m4 e MWnew que estão na pasta Resources.
 
 ## Como usar
 
