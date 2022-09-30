@@ -44,7 +44,7 @@ void main()
 <script id="fragment-shader" type="x-shader/x-fragment">
 #version 300 es
 
-precision mediump float;
+precision highp float;
 
 in vec4 vColor;
 out vec4 fColor;
@@ -65,16 +65,24 @@ main()
 <body>
     <div style="display: flex; flex-direction: column; align-items: center;">
         <div>
-            <canvas style="border: 2px solid black; border-radius: 10px;" id="gl-canvas" width="300" height="300">
+            <canvas style="border: 2px solid black; border-radius: 10px;" id="gl-canvas" width="700" height="700">
                 Oops ... your browser doesn't support the HTML5 canvas element
             </canvas>
-            <input style="rotate: 10px; position: absolute; top: 150px; right: 30%; writing-mode: bt-lr; /* IE */
-                -webkit-appearance: slider-vertical; /* Chromium */
-                width: 8px;
-                height: 175px;
-                padding: 0 5px;" type="range" min="1" max="360" value="180" class="slider" id="cameraX" orient="vertical"/>
+            
         </div>
-        <input style="max-width: 300px; position: relative;" type="range" min="1" max="360" value="180" class="slider" id="cameraY">
+        
+        <input style="width: 200px; position: relative;" type="range" min="1" max="360" value="180" class="slider" id="cameraY">
+        <input style=" 
+            writing-mode: bt-lr;
+            -webkit-appearance: slider-vertical;
+            width: 8px;
+            height: 175px;
+            padding: 0 5px; 
+            position: absolute; 
+            top: 270px; 
+            right: 21%;
+            max-height: 200;" 
+            type="range" min="1" max="360" value="180" class="slider" id="cameraX" orient="vertical">
         <div>
             <button style="max-width: 100px;" id= "xButton">Rotate X</button>
             <button style="max-width: 100px;" id= "yButton">Rotate Y</button>
