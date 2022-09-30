@@ -48,43 +48,42 @@ var vertices = [[
 
 var vertexColors = [
     [
-        vec4(0.0, 0.0, 0.0, 1.0),  // black
-        vec4(1.0, 0.0, 0.0, 1.0),  // red
-        vec4(1.0, 1.0, 0.0, 1.0),  // yellow
-        vec4(0.0, 1.0, 0.0, 1.0),  // green
-        vec4(0.0, 0.0, 1.0, 1.0),  // blue
+        vec4(0.0, 0.0, 0.0, 1.0),  // preto
+        vec4(1.0, 0.0, 0.0, 1.0),  // vermelho
+        vec4(1.0, 1.0, 0.0, 1.0),  // amarelo
+        vec4(0.0, 1.0, 0.0, 1.0),  // verde
+        vec4(0.0, 0.0, 1.0, 1.0),  // azul
         vec4(1.0, 0.0, 1.0, 1.0),  // magenta
-        vec4(1.0, 1.0, 1.0, 1.0),  // white
-        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+        vec4(1.0, 1.0, 1.0, 1.0),  // branco
+        vec4(0.0, 1.0, 1.0, 1.0),  // ciano
     ],
     [
-        vec4(0.6, 0.0, 0.0, 1.0),  
-        vec4(1, 0.0, 0.0, 1.0),  
-        vec4(0.6, 0.0, 0.0, 1.0), 
-        vec4(1, 0.0, 0.0, 1.0),
-        vec4(0.8, 0.0, 0.0, 1.0), 
-        vec4(0.8, 0.0, 0.0, 1.0),  
-        vec4(0.8, 0.5, 0.5, 1.0), 
-        vec4(0.8, 0.5, 0.5, 1.0)   
+        vec4(0.6, 0.0, 0.0, 1.0),  //vermelho escuro
+        vec4(1, 0.0, 0.0, 1.0),  //vermelho
+        vec4(0.6, 0.0, 0.0, 1.0), //vermelho esucro
+        vec4(1, 0.0, 0.0, 1.0), //vermelho
+        vec4(0.8, 0.0, 0.0, 1.0), //vermelho escuro
+        vec4(0.8, 0.0, 0.0, 1.0), //vermelho escuro
+        vec4(0.8, 0.5, 0.5, 1.0), //branco
+        vec4(0.8, 0.5, 0.5, 1.0)  //branco 
     ],
     [
-        vec4(0.5, 0.0, 0.5, 1.0),  // tonalidade mais escura
-        vec4(0.5, 0.0, 0.5, 1.0),  // tonalidade mais escura 
-        vec4(0.5, 0.0, 0.5, 0.0),  // branco
-        vec4(1.0, 0.0, 1.0, 1.0),  // tonalidade mais clara
-        vec4(1.0, 0.0, 1.0, 1.0),  // tonalidade mais clara
-        vec4(1.0, 0.0, 1.0, 0.0),  // branco 
+        vec4(0.5, 0.0, 0.5, 1.0),  // roxo
+        vec4(0.5, 0.0, 0.5, 1.0),  // roxo
+        vec4(0.5, 0.0, 0.5, 0.0),  // roxo
+        vec4(1.0, 0.0, 1.0, 1.0),  // roxo claro
+        vec4(1.0, 0.0, 1.0, 1.0),  // roxo claro
+        vec4(1.0, 0.0, 1.0, 0.0),  // roxo claro 
     ],
     [
-        vec4(0.0, 0.0, 0.0, 1.0),  // black
-        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
-        vec4(0.0, 0.0, 0.0, 1.0),  // yellow
-        vec4(0.0, 1.0, 1.0, 1.0),  // cyan
-        vec4(0.0, 1.0, 0.5, 1.0),  // cyan
+        vec4(0.0, 0.0, 0.0, 1.0),  // preto
+        vec4(0.0, 1.0, 1.0, 1.0),  // azul claro
+        vec4(0.0, 0.0, 0.0, 1.0),  // preto
+        vec4(0.0, 1.0, 1.0, 1.0),  // azul claro
+        vec4(0.0, 1.0, 0.5, 1.0),  // verde claro
     ],
 ];
 
-// indices of the 12 triangles that compise the cube
 var indices = [
     [
         2, 1, 0, //face da frente
