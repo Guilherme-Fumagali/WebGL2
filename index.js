@@ -23,8 +23,8 @@ var vertices = [[
         vec4(0.5, -0.2,  0.1, 1),
         vec4(-0.5, -0.2, -0.5, 1),
         vec4(-0.5,  0.2, -0.5, 1),
-        vec4(0.5,  0.5, -0.5, 1),
-        vec4(0.5, -0.5, -0.5, 1),
+        vec4(0.5,  0.35, -0.5, 1),
+        vec4(0.5, -0.35, -0.5, 1),
     ],
     [
         vec4(0.5, 0.5, 0, 1),
@@ -55,14 +55,14 @@ var vertexColors = [
         vec4(0.0, 1.0, 1.0, 1.0),  // cyan
     ],
     [
-        vec4(0.5, 0.1, 0.0, 1.0),  // black
-        vec4(0.0, 0.2, 0.0, 1.0),  // red
-        vec4(0.0, 0.3, 0.5, 1.0),  // yellow
-        vec4(0.1, 0.4, 0.1, 1.0),  // green
-        vec4(0.5, 0.5, 0.0, 1.0),  // blue
-        vec4(0.9, 0.6, 0.2, 1.0),  // magenta
-        vec4(0.0, 0.7, 0.5, 1.0),  // white
-        vec4(0.5, 0.8, 0.5, 1.0)   // cyan
+        vec4(0.6, 0.0, 0.0, 1.0),  
+        vec4(1, 0.0, 0.0, 1.0),  
+        vec4(0.6, 0.0, 0.0, 1.0), 
+        vec4(1, 0.0, 0.0, 1.0),
+        vec4(0.8, 0.0, 0.0, 1.0), 
+        vec4(0.8, 0.0, 0.0, 1.0),  
+        vec4(0.8, 0.5, 0.5, 1.0), 
+        vec4(0.8, 0.5, 0.5, 1.0)   
     ],
     [
         vec4(0.5, 0.0, 0.5, 1.0),  // tonalidade mais escura
@@ -245,7 +245,7 @@ function montaCena(){
     //objeto 2
     multiplica(vertices[1], m4.translation(positions.objeto2, 0.1, 0))
     rotaciona(vertices[1], m4.xRotation(radians(270)), positions.objeto2, 0.1)
-    rotaciona(vertices[1], m4.yRotation(radians(270)), positions.objeto2, 0.1)
+    rotaciona(vertices[1], m4.yRotation(radians(250)), positions.objeto2, 0.1)
 
     //objeto 3
     multiplica(vertices[2], m4.translation(positions.objeto3, 0, 0.1))

@@ -11,7 +11,7 @@ Integrantes:
 
 ## Implementação
 
-Foi implementado uma cena, que pode ser visualizada a partir de uma câmera movel pelos eixos X e Y. Nessa cena temos 4 objetos com diferentes formas geométricas, sendo um cubo, uma pirâmide, um prisma e um hexágono não regular, implementados atravez de uma malha de triangulos, utilizando dois shaders(vertex e fragment). Destes objetos, o cubo possui o movimento de rotação através dos eixos X, Y e Z.
+Foi implementado uma cena, que pode ser visualizada a partir de uma câmera movel pelos eixos X e Y. Nessa cena temos 4 objetos com diferentes formas geométricas, sendo um cubo, uma pirâmide, um prisma e um hexaedro não regular(com forma de um sapato), implementados através de uma malha de triângulos, utilizando dois shaders(vertex e fragment). Destes objetos, o cubo possui o movimento de rotação através dos eixos X, Y e Z.
 
 O código foi feito em JavaScript utilizando a API WebGL, HTML, CSS, com algumas bibliotecas de auxílio com operações de matrizes, m4 e MWnew que estão na pasta Resources.
 
